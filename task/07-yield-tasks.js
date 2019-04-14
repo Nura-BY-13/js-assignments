@@ -51,6 +51,7 @@ function* getFibonacciSequence() {
 }
 
 
+
 /**
  * Traverses a tree using the depth-first strategy
  * See details: https://en.wikipedia.org/wiki/Depth-first_search
@@ -82,7 +83,37 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-    throw new Error('Not implemented');
+    
+    let arrRoot = [];
+    let lastChild = '';
+    let i;
+
+    arrRoot.push(root);
+    yield root;
+
+    while (root) {
+
+        if (root.children) {
+
+            i = root.children.indexOf(lastChild);
+            root = root.children[i + 1];
+
+            if (root) {
+                lastChild = '';
+                arrRoot.push(root);
+                yield root;
+
+            } else {
+                lastChild = arrRoot.pop();
+                root = arrRoot[arrRoot.length - 1] || null;
+            }
+
+        } else {
+
+            lastChild = arrRoot.pop();
+            root = arrRoot[arrRoot.length - 1] || null;
+        }
+    }
 }
 
 
@@ -110,6 +141,8 @@ function* depthTraversalTree(root) {
 function* breadthTraversalTree(root) {
     throw new Error('Not implemented');
 }
+
+
 
 
 /**
